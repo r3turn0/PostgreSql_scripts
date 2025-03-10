@@ -16,4 +16,4 @@ AS $BODY$
 $BODY$;
 
 ALTER FUNCTION etc.isdate(character varying)
-    OWNER TO postgres;
+    OWNER TO "DUser";

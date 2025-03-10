@@ -1,20 +1,15 @@
-INSERT INTO etc.cost (cost_id, product_id, subsidiary, "cost", purchase_price, unit, filename, load_id, 
-date_upload, uploaded_by)
+INSERT INTO etc.cost (product_id, "cost", purchase_price, itemid, packaging_unit, filename, load_id, date_upload, uploaded_by, unit, sales_description)
 	SELECT
-		'c' || p.product_id,
 		p.product_id,
-		CASE WHEN p.vendor1_name IS NOT NULL OR p.vendor1_name <> '' 
-			THEN split_part(p.vendor1_name, ' ', 1) ELSE 
-		CASE WHEN p.vendor2_name IS NOT NULL OR p.vendor2_name <> '' 
-			THEN split_part(p.vendor2_name, ' ' , 1) ELSE NULL END 
-		END,
 		p.cost,
-		p.price_by_uom,
-		p.unitstype,
+		p.sales_qty_pack_unit,
+		p.itemid,
 		p.filename,
 		p.load_id,
 		CAST(p.date_upload AS timestamp),
-		p.uploaded_by
+		p.uploaded_by,
+		p.sales_packaging_unit,
+		p.salesdescription
 	FROM etc.product p;
 
 SELECT * FROM etc.product;

@@ -3,6 +3,6 @@ WITH cte AS (
 	JOIN etc.product p
 	ON c.product_id = p.product_id
 )
-UPDATE etc.la_nh_product SET cost_id = cte.cost_id, product_id = cte.product_id, 
-subsidiary1_id = cte.vendor1_subsidiary, subsidiary2_id = cte.vendor2_subsidiary FROM cte WHERE item_number = cte.itemid;
+UPDATE etc.la_nh_product la_nh SET cost_id = cte.cost_id, product_id = cte.product_id, 
+subsidiary1_id = cte.vendor1_subsidiary, subsidiary2_id = cte.vendor2_subsidiary FROM cte WHERE la_nh.itemid = cte.itemid;
 SELECT * FROM etc.la_nh_product;
