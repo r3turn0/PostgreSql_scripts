@@ -13,13 +13,13 @@ BEGIN
 	BEGIN
 
 		WITH cte AS (
-			SELECT etc.uuid_nil() as nil, item_name, item_size, item_color, id FROM etc.tm_product
+			SELECT etc.uuid_nil() as nil, item_name, item_size, item_color, id, product_id FROM etc.tm_product
 		)
 		UPDATE etc.tm_product 
 		SET pid = subquery.pid
 		FROM (
-			SELECT product_id, etc.uuid_generate_v3(etc.uuid_nil(), id || ' ' || item_name || ' ' || item_size || ' ' || item_color) as pid
-			FROM etc.tm_product
+			SELECT product_id, etc.uuid_generate_v3(nil, id || ' ' || item_name || ' ' || item_size || ' ' || item_color) as pid
+			FROM cte
 		) AS subquery
 		WHERE etc.tm_product.product_id = subquery.product_id;
 				
